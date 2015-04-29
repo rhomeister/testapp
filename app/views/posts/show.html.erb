@@ -7,6 +7,46 @@
     </h3>
   </div>
   <div class="col-sm-9">
+    <h1><%= @post.title %></h1>
     <%= @post.content_html.html_safe %>
   </div>
 </div>
+
+<h2>Comments</h2>
+
+<%= @post.comments.count %> Comments found
+
+<% @post.comments.each do |comment| %>
+    <div class="row">
+      <div class="col-sm-3">
+        <h3>
+          <small><i class="fa fa-calendar"></i>&nbsp;&nbsp;<%= comment.updated_at.strftime("%Y, %B %-d") %></small>
+        </h3>
+      </div>
+      <div class="col-sm-9">
+        <%= comment.content %>
+      </div>
+    </div>
+<% end %>
+
+
+<%= form_for [@post, @post.comments.new], role: "form" do |f| %>
+
+    <div class="form-group">
+      <%= f.label :content, "Content" %>
+      <div class="row">
+        <div class="col-xs-12">
+          <%= f.text_area :content, rows: 15, class: "form-control monospaced-control", placeholder: "Comment content..." %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 padded">
+        <button class='btn btn-primary'>
+          <i class='fa fa-plus-square'></i> Publish
+        </button> - <%= link_to "Cancel", posts_path %>
+      </div>
+    </div>
+
+<% end %>

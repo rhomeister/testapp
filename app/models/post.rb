@@ -6,8 +6,10 @@ class Post < ActiveRecord::Base
   # Markdown
   before_save { MarkdownWriter.update_html(self) }
 
+  has_many :comments
+
   # Validations
-  #validates :title, presence: true, length: { maximum: 100 }, uniqueness: true
+  validates :title, presence: true, length: { maximum: 100 }, uniqueness: true
   validates :content_md, presence: true
 
   # Pagination

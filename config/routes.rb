@@ -3,7 +3,9 @@ App::Application.routes.draw do
   get "home", to: "pages#home", as: "home"
   get "inside", to: "pages#inside", as: "inside"
 
-  resources :posts, only: [:show, :index]
+  resources :posts, only: [:show, :index] do
+    resources :comments
+  end
 
   devise_for :users
 
