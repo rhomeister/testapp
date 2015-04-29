@@ -7,14 +7,24 @@ class Post < ActiveRecord::Base
   before_save { MarkdownWriter.update_html(self) }
 
   # Validations
-  #validates :title, presence: true, length: { maximum: 100 }, uniqueness: true
+  validates :title, presence: true, length: { maximum: 100 }, uniqueness: true
   validates :content_md, presence: true
+
+  has_many :comments
 
   # Pagination
   paginates_per 30
 
   # Relations
   belongs_to :user
+
+  def title
+    if self[:title] == 'Ruben'
+      puts "It's ok to have that title"
+    end
+
+    self[:title]
+  end
 
   # Scopes
   scope :published, lambda {

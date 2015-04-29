@@ -7,6 +7,15 @@
     </h3>
   </div>
   <div class="col-sm-9">
+    <h1><%= @post.title %></h1>
     <%= @post.content_html.html_safe %>
   </div>
 </div>
+
+<h2><%= @post.comments.count %> comments found</h2>
+
+<% @post.comments.each do |comment| %>
+    <div>
+      <%= comment.content %>
+    </div>
+<% end %>
